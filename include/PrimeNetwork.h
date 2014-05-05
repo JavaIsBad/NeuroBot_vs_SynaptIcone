@@ -7,12 +7,20 @@
 
 #define NBINTO 3
 
+struct TableDeVerite{
+    bool ff;
+    bool vf;
+    bool fv;
+    bool vv;
+};
+
 class PrimeNetwork{
     public:
         PrimeNetwork(double min, double max);
-        PrimeNetwork(PrimeNetwork& prime);
+        PrimeNetwork(const PrimeNetwork& prime);
         ~PrimeNetwork(void);
         bool CalculusPrime(std::list<bool> boulien);
+        bool evaluate(TableDeVerite tab);
     private:
         std::vector<NeuroBot> inBot;
         NeuroBot outBot;
