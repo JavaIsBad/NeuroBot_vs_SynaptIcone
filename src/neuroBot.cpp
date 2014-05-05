@@ -7,6 +7,9 @@ NeuroBot::NeuroBot(std::list<double> poids){
 NeuroBot::~NeuroBot(){
 }
 
+NeuroBot::NeuroBot(){
+}
+
 bool NeuroBot::bumblebIn(std::list<bool> in){
     double result;
     if( poids.size() != in.size() )
@@ -17,4 +20,7 @@ bool NeuroBot::bumblebIn(std::list<bool> in){
         result += *boolIt * *poidsIt;
     }
     return result >= 0.5 ? true : false;
+}
+int NeuroBot::ChangeMyList(std::list<double> list){
+    poids = list;
 }
