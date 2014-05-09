@@ -65,10 +65,14 @@ int NetiTron::foo_fighter(unsigned int one, unsigned int two, unsigned int three
         return 6; // two and three win
 }
 
-int NetiTron::BestOfFive(PrimeNetwork& competitor1, PrimeNetwork& competitor2){
-    
+int NetiTron::BestOfFive(PrimeNetwork& competitor1, PrimeNetwork& competitor2){ //1 si comp1 > comp2
+    int fit1 = fitnessPrime(competitor1);
+    int fit2 = fitnessPrime(competitor2);
+    return (fit1 > fit2)? 1 : -1;
 }
 
 int NetiTron::fitnessPrime(PrimeNetwork& prime){
     return prime.differencielPrime(tab);
 }
+
+void tri
