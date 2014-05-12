@@ -5,7 +5,8 @@ PrimeNetwork::PrimeNetwork(double min, double max){
     for(unsigned int i=0; i < NBINTO; i++){
         l.push_back( RandHomme::randDouble(min, max) );
         l.push_back( RandHomme::randDouble(min, max) );
-        inBot.push_back(NeuroBot::NeuroBot( l ));
+        NeuroBot nb( l );
+        inBot.push_back(nb);
         l.clear();
     }
     for(unsigned int i=0; i < NBINTO; i++)
@@ -21,15 +22,16 @@ PrimeNetwork::PrimeNetwork(const PrimeNetwork& prime){
 PrimeNetwork::~PrimeNetwork(){
 }
 
-    bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
-        if( boulien.size() != 2 )
-            return false;
-        std::list<bool> l;
-        for(unsigned int i = 0; i < NBINTO; i++){
-            l.push_back( inBot.at( i ).bumblebIn( boulien ) );
-        }
-        return outBot.bumblebIn( l );
+bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
+    if( boulien.size() != 2 )
+        return false;
+    std::list<bool> l;
+    for(unsigned int i = 0; i < NBINTO; i++){
+        l.push_back( inBot.at( i ).bumblebIn( boulien ) );
     }
+    return outBot.bumblebIn( l );
+}
+
 bool PrimeNetwork::evaluate(const TableDeVerite& tab){
     std::list<bool> l;
     l.push_back(true);
@@ -69,6 +71,7 @@ std::ostream& operator<< (std::ostream& os, PrimeNetwork& prime){
 NeuroBot& PrimeNetwork::giveMeBrain(unsigned int position){
     return inBot.at(position);
 }
+
 int PrimeNetwork::differencielPrime(const TableDeVerite& tab){
     int shala = 0;
     std::list<bool> l;
