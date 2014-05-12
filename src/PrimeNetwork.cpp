@@ -96,3 +96,10 @@ int PrimeNetwork::differencielPrime(const TableDeVerite& tab){
         shala++;
     return shala;
 }
+
+void PrimeNetwork::IlEtaitUneFoisJeMinverse(){
+	for (int i=0; i<inBot.size(); i++){
+		inBot.at(i).jeMeChange();
+	}
+}
+

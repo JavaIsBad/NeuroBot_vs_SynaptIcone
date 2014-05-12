@@ -39,3 +39,10 @@ std::ostream& NeuroBot::printMe(std::ostream& os){
 std::ostream& operator<< (std::ostream& os, NeuroBot& bot){
     return bot.printMe(os);
 }
+
+void NeuroBot::jeMeChange(){
+		std::list<double>::const_iterator poidsIt = poids.begin();
+    for(; poidsIt != poids.end(); poidsIt++){
+		*poidsIt =- (*poidsIt);
+    }
+}

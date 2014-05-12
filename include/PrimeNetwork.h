@@ -25,6 +25,8 @@ class PrimeNetwork{
         std::ostream& printMe(std::ostream& os);
         NeuroBot& giveMeBrain(unsigned int position);
         int differencielPrime(const TableDeVerite& tab);
+		void IlEtaitUneFoisJeMinverse();//
+
     private:
         std::vector<NeuroBot> inBot;
         NeuroBot outBot;

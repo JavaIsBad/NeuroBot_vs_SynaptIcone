@@ -24,7 +24,20 @@ bool NetiTron::Fin(PrimeNetwork* prime){
     return false;
 }
 
-void NetiTron::evolution(void){
+void NetiTron::evolution(void){//a faire
+	//Prendre un primenetwork au hasard, et modifier les valeurs des neurones a l'interieur, en prenant !neuronne par exemple
+	unsigned int chosen_one = RandHomme::randInt(0, networkOfNetwork.size());
+	PrimeNetwork* p = networkOfNetwork.at(chosen_one);
+	p->IlEtaitUneFoisJeMinverse();
+}
+
+void Netitron::crossMeMaybe(unsigned int prems, unsigned int second){//a faire
+	PrimeNetwork* p1 = networkOfNetwork.at(prems);
+	PrimeNetwork* p2 = networkOfNetwork.at(second);
+	accouplonsNous(p1,p2);
+}
+
+void Netitron::accouplonsNous(PrimeNetwork* p1, PrimeNetwork* p2){// a faire
 }
 
 void NetiTron::crossover(void){

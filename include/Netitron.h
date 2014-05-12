@@ -20,12 +20,15 @@ class NetiTron{
         void mutation(void);
         void clonnage(void);
         void selection(void);
+        void evolution(void);//
         int foo_fighter(unsigned int one, unsigned int two, unsigned int three);
         int BestOfFive(PrimeNetwork& competitor1, PrimeNetwork& competitor2);
         void crossMeMaybe(unsigned int prems, unsigned int second);
         int fitnessPrime(PrimeNetwork& prime);
         static bool infPrime(PrimeNetwork& p1, PrimeNetwork& p2);
         std::vector<PrimeNetwork> networkOfNetwork;
+        void accouplonsNous(PrimeNetwork* p1, PrimeNetwork* p2);
+
 };
 
 #endif // (__NETITRON_H)
