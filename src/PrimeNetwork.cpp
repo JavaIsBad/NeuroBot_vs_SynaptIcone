@@ -24,7 +24,7 @@ PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
 	std::list<double> l;
 	for (int i=0; i<3; i++){
 		for (int j=0; j<2; j++){
-			rand = RandHomme::RandInt(0,2);
+			rand = RandHomme::randInt(0,2);
 			if (rand >= 1)
 				l.push_back( p1.inBot.at(i).recup(j) );
 			else
@@ -35,7 +35,7 @@ PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
      l.clear();
 	}
 	for(unsigned int i=0; i < NBINTO; i++){
-		rand = RandHomme::RandInt(0,2);
+		rand = RandHomme::randInt(0,2);
 		if (rand>=1){
 			l.push_back( p1.outBot.recup(i) );
 			}
