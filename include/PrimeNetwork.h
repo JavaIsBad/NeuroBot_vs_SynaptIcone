@@ -19,6 +19,7 @@ class PrimeNetwork{
     public:
         PrimeNetwork(double min, double max);
         PrimeNetwork(const PrimeNetwork& prime);
+       PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2);
         ~PrimeNetwork(void);
         bool CalculusPrime(std::list<bool> boulien);
         bool evaluate(const TableDeVerite& tab);

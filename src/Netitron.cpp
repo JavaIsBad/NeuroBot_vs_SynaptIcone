@@ -25,19 +25,18 @@ bool NetiTron::Fin(PrimeNetwork* prime){
 }
 
 void NetiTron::evolution(void){//a faire
-	//Prendre un primenetwork au hasard, et modifier les valeurs des neurones a l'interieur, en prenant !neuronne par exemple
-	unsigned int chosen_one = RandHomme::randInt(0, networkOfNetwork.size());
-	PrimeNetwork* p = networkOfNetwork.at(chosen_one);
-	p->IlEtaitUneFoisJeMinverse();
+
 }
 
 void Netitron::crossMeMaybe(unsigned int prems, unsigned int second){//a faire
-	PrimeNetwork* p1 = networkOfNetwork.at(prems);
-	PrimeNetwork* p2 = networkOfNetwork.at(second);
+	PrimeNetwork p1 = networkOfNetwork.at(prems);
+	PrimeNetwork p2 = networkOfNetwork.at(second);
 	accouplonsNous(p1,p2);
 }
 
-void Netitron::accouplonsNous(PrimeNetwork* p1, PrimeNetwork* p2){// a faire
+void Netitron::accouplonsNous(PrimeNetwork& p1, PrimeNetwork& p2){// a faire
+	PrimeNetwork p3 = new PrimeNetwork(p1, p2);
+	networkOfNetwork.push_back(p3);
 }
 
 void NetiTron::crossover(void){
@@ -92,6 +91,23 @@ int NetiTron::fitnessPrime(PrimeNetwork& prime){
     return prime.differencielPrime(tab);
 }
 
-void NetiTron::selection(void){
+void NetiTron::selection(void){ //Sort + jete
     std::sort(networkOfNetwork.begin(), networkOfNetwork.end(), infPrime);
+    while (networkOfNetwork.size()>100){
+		networkOfNetwork.pop_back();
+	}
 }
+
+void NetiTron::mutation(void){
+	//Prendre un primenetwork au hasard, et modifier les valeurs des neurones a l'interieur, en prenant !neuronne par exemple
+	unsigned int chosen_one = RandHomme::randInt(0, networkOfNetwork.size());
+	PrimeNetwork p = networkOfNetwork.at(chosen_one);
+	p.IlEtaitUneFoisJeMinverse();
+}
+
+void NetiTron::clonnage(void){
+	int rand=RandHomme::RandInt(0,networkOfNetwork.size());
+	PrimeNetwork p2(networkOfNetwork.at(rand));
+	networkOfNetwork.push_back(p2);
+}
+

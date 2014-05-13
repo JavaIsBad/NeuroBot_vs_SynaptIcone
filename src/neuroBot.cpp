@@ -24,6 +24,7 @@ bool NeuroBot::bumblebIn(std::list<bool> in){
 }
 int NeuroBot::ChangeMyList(std::list<double> list){
     poids = list;
+    return 0;
 }
 
 std::ostream& NeuroBot::printMe(std::ostream& os){
@@ -41,8 +42,15 @@ std::ostream& operator<< (std::ostream& os, NeuroBot& bot){
 }
 
 void NeuroBot::jeMeChange(){
-		std::list<double>::const_iterator poidsIt = poids.begin();
+		std::list<double>::iterator poidsIt = poids.begin();
     for(; poidsIt != poids.end(); poidsIt++){
-		*poidsIt =- (*poidsIt);
+		*poidsIt =- (*poidsIt)+5;
     }
+}
+
+double NeuroBot::recup(int pos){
+	std::list<double>::const_iterator poidsIt = poids.begin();
+		for (int i=0; i<pos; i++)
+			poidsIt++;
+	return *poidsIt;
 }

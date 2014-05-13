@@ -19,6 +19,35 @@ PrimeNetwork::PrimeNetwork(const PrimeNetwork& prime){
     outBot = prime.outBot;
 }
 
+PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
+	int rand;
+	std::list<double> l;
+	for (int i=0; i<3; i++){
+		for (int j=0; j<2; j++){
+			rand = RandHomme::RandInt(0,2);
+			if (rand >= 1)
+				l.push_back( p1.inBot.at(i).recup(j) );
+			else
+				l.push_back( p2.inBot.at(i).recup(j) );
+		}
+	 NeuroBot nb( l );
+     inBot.push_back(nb);
+     l.clear();
+	}
+	for(unsigned int i=0; i < NBINTO; i++){
+		rand = RandHomme::RandInt(0,2);
+		if (rand>=1){
+			l.push_back( p1.outBot.recup(i) );
+			}
+		else{
+			l.push_back( p2.outBot.recup(i) );
+		}
+	}
+	outBot.ChangeMyList( l );
+}
+
+
+
 PrimeNetwork::~PrimeNetwork(){
 }
 

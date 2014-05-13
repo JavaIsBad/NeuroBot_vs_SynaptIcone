@@ -13,6 +13,7 @@ class NeuroBot{
         int ChangeMyList(std::list<double> list);
         std::ostream& printMe(std::ostream& os);
         void jeMeChange(); //
+        double recup(int pos);
     private:
         std::list<double> poids;
 };
