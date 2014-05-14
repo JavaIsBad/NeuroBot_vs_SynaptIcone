@@ -20,30 +20,30 @@ PrimeNetwork::PrimeNetwork(const PrimeNetwork& prime){
 }
 
 PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
-	int rand;
-	std::list<double> l;
-	for (int i=0; i<3; i++){
-		for (int j=0; j<2; j++){
-			rand = RandHomme::randInt(0,2);
-			if (rand >= 1)
-				l.push_back( p1.inBot.at(i).recup(j) );
-			else
-				l.push_back( p2.inBot.at(i).recup(j) );
-		}
-	 NeuroBot nb( l );
-     inBot.push_back(nb);
-     l.clear();
-	}
-	for(unsigned int i=0; i < NBINTO; i++){
-		rand = RandHomme::randInt(0,2);
-		if (rand>=1){
-			l.push_back( p1.outBot.recup(i) );
-			}
-		else{
-			l.push_back( p2.outBot.recup(i) );
-		}
-	}
-	outBot.ChangeMyList( l );
+    int rand;
+    std::list<double> l;
+    for (int i=0; i<3; i++){
+        for (int j=0; j<2; j++){
+            rand = RandHomme::randInt(0,2);
+            if (rand >= 1)
+                l.push_back( p1.inBot.at(i).recup(j) );
+            else
+                l.push_back( p2.inBot.at(i).recup(j) );
+        }
+        NeuroBot nb( l );
+        inBot.push_back(nb);
+        l.clear();
+    }
+    for(unsigned int i=0; i < NBINTO; i++){
+        rand = RandHomme::randInt(0,2);
+        if (rand>=1){
+            l.push_back( p1.outBot.recup(i) );
+        }
+        else{
+            l.push_back( p2.outBot.recup(i) );
+        }
+    }
+    outBot.ChangeMyList( l );
 }
 
 
@@ -51,15 +51,15 @@ PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
 PrimeNetwork::~PrimeNetwork(){
 }
 
-bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
-    if( boulien.size() != 2 )
-        return false;
-    std::list<bool> l;
-    for(unsigned int i = 0; i < NBINTO; i++){
-        l.push_back( inBot.at( i ).bumblebIn( boulien ) );
+    bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
+        if( boulien.size() != 2 )
+            return false;
+        std::list<bool> l;
+        for(unsigned int i = 0; i < NBINTO; i++){
+            l.push_back( inBot.at( i ).bumblebIn( boulien ) );
+        }
+        return outBot.bumblebIn( l );
     }
-    return outBot.bumblebIn( l );
-}
 
 bool PrimeNetwork::evaluate(const TableDeVerite& tab){
     std::list<bool> l;
@@ -90,6 +90,7 @@ std::ostream& PrimeNetwork::printMe(std::ostream& os){
     for(unsigned int i=0; i < inBot.size(); i++){
         os << inBot.at(i) << std::endl;
     }
+    os << outBot << std::endl;
     return os;
 }
 
@@ -127,8 +128,9 @@ int PrimeNetwork::differencielPrime(const TableDeVerite& tab){
 }
 
 void PrimeNetwork::IlEtaitUneFoisJeMinverse(){
-	for (int i=0; i<inBot.size(); i++){
-		inBot.at(i).jeMeChange();
-	}
+    for (unsigned int i=0; i<inBot.size(); i++){
+        inBot.at(i).jeMeChange();
+    }
+    outBot.jeMeChange();
 }
 

@@ -3,6 +3,7 @@
 
 #include <list>
 #include <iostream>
+#include "RandHomme.h"
 
 class NeuroBot{
     public:

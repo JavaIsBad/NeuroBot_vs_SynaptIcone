@@ -14,6 +14,9 @@ class NetiTron{
         ~NetiTron();
         bool Fin(PrimeNetwork* prime);
         void evolution(void);
+        unsigned long int nbmutation, nbclonage, nbcrossover;
+        unsigned int bestOfFitness;
+        double moyenneFitness;
     private:
         TableDeVerite tab;
         void crossover(void);
@@ -26,6 +29,7 @@ class NetiTron{
         int fitnessPrime(PrimeNetwork& prime);
         std::vector<PrimeNetwork> networkOfNetwork;
         void accouplonsNous(PrimeNetwork& p1, PrimeNetwork& p2);
+        void calculDeMoyenneMax();
 };
 
 #endif // (__NETITRON_H)
