@@ -15,51 +15,45 @@ PrimeNetwork::PrimeNetwork(double min, double max){
 }
 
 PrimeNetwork::PrimeNetwork(const PrimeNetwork& prime){
-    inBot = prime.inBot;
-    outBot = prime.outBot;
+    (*this) = prime;
 }
 
 PrimeNetwork::PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2){
+    NeuroBot nb;
     int rand;
-    std::list<double> l;
-    for (int i=0; i<3; i++){
-        for (int j=0; j<2; j++){
-            rand = RandHomme::randInt(0,2);
-            if (rand >= 1)
-                l.push_back( p1.inBot.at(i).recup(j) );
-            else
-                l.push_back( p2.inBot.at(i).recup(j) );
-        }
-        NeuroBot nb( l );
-        inBot.push_back(nb);
-        l.clear();
-    }
-    for(unsigned int i=0; i < NBINTO; i++){
+    for (unsigned int i=0; i < NBINTO; i++){
         rand = RandHomme::randInt(0,2);
-        if (rand>=1){
-            l.push_back( p1.outBot.recup(i) );
+        if(rand >= 1){
+            nb = p1.giveMeBrain(i);
         }
         else{
-            l.push_back( p2.outBot.recup(i) );
+            nb = p2.giveMeBrain(i);
         }
+        inBot.push_back(nb);
     }
-    outBot.ChangeMyList( l );
+    rand = RandHomme::randInt(0,2);
+    if (rand>=1){
+        nb = p1.giveMeBrain(NBINTO);
+    }
+    else{
+        nb = p2.giveMeBrain(NBINTO);
+    }
+    outBot = nb;
 }
-
 
 
 PrimeNetwork::~PrimeNetwork(){
 }
 
-    bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
-        if( boulien.size() != 2 )
-            return false;
-        std::list<bool> l;
-        for(unsigned int i = 0; i < NBINTO; i++){
-            l.push_back( inBot.at( i ).bumblebIn( boulien ) );
-        }
-        return outBot.bumblebIn( l );
+bool PrimeNetwork::CalculusPrime(std::list<bool> boulien){
+    if( boulien.size() != 2 )
+        return false;
+    std::list<bool> li;
+    for(std::vector<NeuroBot>::iterator it = inBot.begin(); it != inBot.end(); ++it){
+        li.push_back( (*it).bumblebIn( boulien ) );
     }
+    return outBot.bumblebIn( li );
+}
 
 bool PrimeNetwork::evaluate(const TableDeVerite& tab){
     std::list<bool> l;
@@ -99,32 +93,44 @@ std::ostream& operator<< (std::ostream& os, PrimeNetwork& prime){
 }
 
 NeuroBot& PrimeNetwork::giveMeBrain(unsigned int position){
+    if( position== NBINTO )
+        return outBot;
     return inBot.at(position);
 }
 
-int PrimeNetwork::differencielPrime(const TableDeVerite& tab){
-    int shala = 0;
+double PrimeNetwork::CalculusPrimeDouble(std::list<bool> boulien){
+    if( boulien.size() != 2 )
+        return false;
     std::list<bool> l;
+    for(std::vector<NeuroBot>::iterator it = inBot.begin(); it != inBot.end(); ++it){
+        l.push_back( (*it).bumblebIn( boulien ) );
+    }
+    return outBot.diffDouble( l );
+}
+
+double PrimeNetwork::differencielPrime(const TableDeVerite& tab){
+    std::list<bool> l;
+    double diff = 0.;
     l.push_back(true);
     l.push_back(true);
     if(CalculusPrime( l ) != tab.vv)
-        shala++;
+        diff += CalculusPrimeDouble( l );
     l.clear();
     l.push_back(true);
     l.push_back(false);
     if(CalculusPrime( l ) != tab.vf)
-        shala++;
+        diff += CalculusPrimeDouble( l );
     l.clear();
     l.push_back(false);
     l.push_back(true);
     if(CalculusPrime( l ) != tab.fv)
-        shala++;
+        diff += CalculusPrimeDouble( l );
     l.clear();
     l.push_back(false);
     l.push_back(false);
     if(CalculusPrime( l ) != tab.ff)
-        shala++;
-    return shala;
+        diff += CalculusPrimeDouble( l );
+    return diff;
 }
 
 void PrimeNetwork::IlEtaitUneFoisJeMinverse(){

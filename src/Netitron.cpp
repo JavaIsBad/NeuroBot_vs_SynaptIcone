@@ -4,11 +4,11 @@ NetiTron::NetiTron(TableDeVerite tab){
     NetiTron(tab, RandHomme::randInt(100, 1000), RandHomme::randDouble(-100., 0.), RandHomme::randDouble(1., 100.));
 }
 
-NetiTron::NetiTron(TableDeVerite tab, unsigned int nbr, double min, double max){
+NetiTron::NetiTron(TableDeVerite tabv, unsigned int nbr, double min, double max){
     for(unsigned int i=0; i < nbr; i++){
         networkOfNetwork.push_back( PrimeNetwork(min, max) );
     }
-    this->tab = tab;
+    tab = tabv;
     nbclonage = 0;
     nbmutation = 0;
     nbcrossover = 0;
@@ -18,9 +18,9 @@ NetiTron::~NetiTron(){
 }
 
 bool NetiTron::Fin(PrimeNetwork* prime){
-    for(unsigned int i=0; i < networkOfNetwork.size(); i++){
-        if( networkOfNetwork.at(i).evaluate( tab ) ){
-            std::cout << networkOfNetwork.at(i) << std::endl;
+    for(std::vector<PrimeNetwork>::iterator it = networkOfNetwork.begin(); it != networkOfNetwork.end(); ++it){
+        if( (*it).evaluate( tab ) ){
+            *prime = *it;
             return true;
         }
     }
@@ -43,11 +43,11 @@ void NetiTron::evolution(void){
 void NetiTron::calculDeMoyenneMax(){
     moyenneFitness=0;
     unsigned int nbr=0;
-    bestOfFitness=9999;
+    bestOfFitness = std::numeric_limits<double>::max();
     std::vector<PrimeNetwork>::iterator it = networkOfNetwork.begin();
     for(; it != networkOfNetwork.end(); ++it){
-        int fitness = this->fitnessPrime(*it);
-        if(fitness<bestOfFitness)
+        double fitness = this->fitnessPrime(*it);
+        if(fitness < bestOfFitness)
             bestOfFitness=fitness;
         moyenneFitness+=fitness;
         nbr++;
@@ -106,12 +106,12 @@ int NetiTron::foo_fighter(unsigned int one, unsigned int two, unsigned int three
 }
 
 int NetiTron::BestOfFive(PrimeNetwork& competitor1, PrimeNetwork& competitor2){ //1 si comp1 > comp2
-    int fit1 = this->fitnessPrime(competitor1);
-    int fit2 = this->fitnessPrime(competitor2);
-    return (fit1 > fit2)? 1 : -1;
+    double fit1 = this->fitnessPrime(competitor1);
+    double fit2 = this->fitnessPrime(competitor2);
+    return (fit1 > fit2) ? 1 : -1;
 }
 
-int NetiTron::fitnessPrime(PrimeNetwork& prime){
+double NetiTron::fitnessPrime(PrimeNetwork& prime){
     return prime.differencielPrime(tab);
 }
 
@@ -125,8 +125,7 @@ void NetiTron::selection(void){ // Jete au hasard
 void NetiTron::mutation(void){
     //Prendre un primenetwork au hasard, et modifier les valeurs des neurones a l'interieur, en prenant !neuronne par exemple
     unsigned int chosen_one = RandHomme::randInt(0, networkOfNetwork.size());
-    PrimeNetwork p = networkOfNetwork.at(chosen_one);
-    p.IlEtaitUneFoisJeMinverse();
+    networkOfNetwork.at(chosen_one).IlEtaitUneFoisJeMinverse();
     nbmutation++;
 }
 

@@ -19,16 +19,17 @@ class PrimeNetwork{
     public:
         PrimeNetwork(double min, double max);
         PrimeNetwork(const PrimeNetwork& prime);
-       PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2);
+        PrimeNetwork(PrimeNetwork& p1, PrimeNetwork& p2);
         ~PrimeNetwork(void);
-        bool CalculusPrime(std::list<bool> boulien);
         bool evaluate(const TableDeVerite& tab);
         std::ostream& printMe(std::ostream& os);
         NeuroBot& giveMeBrain(unsigned int position);
-        int differencielPrime(const TableDeVerite& tab);
-		void IlEtaitUneFoisJeMinverse();//
+        double differencielPrime(const TableDeVerite& tab);
+        void IlEtaitUneFoisJeMinverse();//
 
     private:
+        bool CalculusPrime(std::list<bool> boulien);
+        double CalculusPrimeDouble(std::list<bool> boulien);
         std::vector<NeuroBot> inBot;
         NeuroBot outBot;
 };

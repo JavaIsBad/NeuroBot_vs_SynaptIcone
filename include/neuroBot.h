@@ -13,8 +13,9 @@ class NeuroBot{
         bool bumblebIn(std::list<bool> in);
         int ChangeMyList(std::list<double> list);
         std::ostream& printMe(std::ostream& os);
-        void jeMeChange(); //
+        void jeMeChange();
         double recup(int pos);
+        double diffDouble(std::list<bool> in);
     private:
         std::list<double> poids;
 };

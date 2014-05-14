@@ -3,12 +3,13 @@ INCLUDE=include/
 OBJ=obj/
 BIN=bin/
 CC=g++
-CFLAGS= -Wall -pedantic 
-IFLAGS=-I$(INCLUDE) 
+CFLAGS= -Wall -pedantic -g
+IFLAGS=-I$(INCLUDE)
 
 vpath %.o $(OBJ)
 vpath %.h $(INCLUDE)
 vpath %.cpp $(SRC)
+vpath optiMain $(BIN)
 
 optiMain : optiMain.o Netitron.o PrimeNetwork.o neuroBot.o RandHomme.o |bin
 	$(CC) -o $@ $(OBJ)optiMain.o $(OBJ)Netitron.o $(OBJ)PrimeNetwork.o $(OBJ)neuroBot.o $(OBJ)RandHomme.o
@@ -31,6 +32,4 @@ bin :
 	mkdir $(BIN)
 
 clean :
-	rm -r obj/ bin/ doc/
-
-	
+	rm -r obj/ bin/
