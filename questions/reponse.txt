@@ -1,0 +1,37 @@
+1>
+Un individu est une représentation d'une solution possible du système à
+résoudre.
+
+2>
+Le système ne trouve jamais la même solution car cela dépend des croisements et des
+mutations qui sont aléatoires et donc on ne peut pas reproduire le même individu
+sauf si la graine du générateur aléatoire est la même.
+
+3>
+L'écart entre la moyenne et le minimum augmente et diminue.
+Lors de l'écartement cela signifie que de nouvelles pistes sont
+trouvées et qu'il est possible que ces individus amènent à la solution plus
+tard. Quand les deux valeurs se rapprochent cela montre que le système de
+sélection naturel est en marche et que les individus essayent de tendre vers
+la solution.
+
+4>
+Moins il y a d'individus, plus le temps de résolution augmente car les
+croisements sont moins efficaces et les individus sont élimines aléatoirement
+et il est donc plus probable qu'un bon individu soit éliminé.
+
+5>
+Les croisements servent à créer de nouveaux individus avec les meilleurs de
+ceux que l'on peut trouver, une sorte de sélection naturelle. La mutation sert
+dans le cas ou il n'est pas possible d'obtenir un individu, même par
+croisement mais un changement aléatoire permet d'augmenter le patrimoine
+génétique.
+Si l'on applique uniquement les croisement il est possible qu'aucune solution
+soit trouvée. Avec uniquement des mutations on obtiens toujours le résultat
+mais dans un temps plus élevée que s'il y avait le croisement activé.
+
+6>
+Les observations effectues se font sur une petite population (<=100 individus)
+mais plus la population est importante et plus il y a de chance qu'un individu
+ait les bons gènes au départ et donc que les croisements soient beaucoup plus
+efficace et qu'ils suffisent pour trouver le bon individu.
