@@ -17,8 +17,8 @@ Les neurones sont initialisées avec des valeurs entre 0 et 1 et il y a 100 indi
 Build & run
 -----------
 
-make
-./bin/optiMain
+    make
+    ./bin/optiMain
 
 License
 -------
